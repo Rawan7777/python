@@ -1,14 +1,14 @@
 class Plant:
-    def __init__(self, name, height, Age):
+    def __init__(self, name, height, plant_age):
         self.name = name
         self.height = height
-        self.Age = Age
+        self.plant_age = plant_age
 
     def grow(self, day):
         return self.height + day - 1
 
     def age(self, day):
-        return self.Age + day - 1
+        return self.plant_age + day - 1
 
     def get_info(self, day):
         print(f"=== Day {day} ===")

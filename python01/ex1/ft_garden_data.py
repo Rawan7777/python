@@ -3,7 +3,7 @@ class Plant:
         self.name = name
         self.height = height
         self.age = age
-        print(f"{name.capitalize()}: {height}cm, {age} days old")
+        print(f"{self.name.capitalize()}: {self.height}cm, {self.age} days old")
 
 print("=== Garden Plant Registry ===")
 Plant("rose", 25, 30)
