@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+
 class Plant:
+    """Plant factory product."""
     total = 0
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
@@ -10,12 +13,14 @@ class Plant:
     def show_total():
         print(f"Total plants created: {Plant.total}")
 
-print("=== Plant Factory Output ===")
+if __name__ == "__main__":
 
-rose = Plant("rose", 25, 30)
-Oak = Plant("Oak", 200, 365)
-Cactus = Plant("Cactus", 5, 90)
-Sunflower = Plant("Sunflower", 80, 45)
-Fern = Plant("Fern", 15, 120)
+    print("=== Plant Factory Output ===")
 
-Plant.show_total()
+    rose = Plant("rose", 25, 30)
+    Oak = Plant("Oak", 200, 365)
+    Cactus = Plant("Cactus", 5, 90)
+    Sunflower = Plant("Sunflower", 80, 45)
+    Fern = Plant("Fern", 15, 120)
+    print()
+    Plant.show_total()
