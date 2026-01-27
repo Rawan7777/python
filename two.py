@@ -1,19 +1,12 @@
-class GardenError(Exception):
-    pass
+import sys
 
 
-class PlantError(GardenError):
-    pass
+print("Program name:", sys.argv[0])
 
-
-class WaterError(GardenError):
-    pass
-
-
-errors = [PlantError(), WaterError()]
-
-for error in errors:
-    try:
-        raise error
-    except GardenError:
-        print("Caught a garden error")                                               
+if len(sys.argv) == 1:
+    print("No arguments provided")
+else:
+    i = 1
+    while i < len(sys.argv):
+        print(f"Arguments {i}: {sys.argv[i]}")
+        i += 1
