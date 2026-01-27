@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-"""
-Garden watering system module.
-
-This module simulates watering plants and demonstrates exception
-handling with proper cleanup.
-"""
-
 
 def water_plants(plant_list):
     """
     Water each plant in the given list.
 
-    :param plant_list: List of plant names
-    :raises ValueError: If an invalid plant is found
+    param plant_list: List of plant names
+    raises ValueError: If an invalid plant is found
     """
     print("Opening watering system")
 
@@ -23,9 +16,9 @@ def water_plants(plant_list):
 
 
 def test_watering_system():
-    """
-    Run test cases for the garden watering system.
-    """
+
+    """Run test cases for the garden watering system."""
+
     print("=== Garden Watering System ===")
 
     print("\nTesting normal watering...")

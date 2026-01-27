@@ -1,51 +1,60 @@
 #!/usr/bin/env python3
 
-def garden_operations():
+def garden_operations(error_type):
+    """
+    Raise a specific error based on the given error type.
+    param error_type: Type of error to trigger
+    """
+    my_dict = {"plant": "tomato"}
 
-    """Demonstrate common Python errors"""
-    
-    my_dict = {"name": "brouane"}
-    
-    try:
+    if error_type == "value":
         print("Testing ValueError...")
-        x = int("a")
-    except ValueError as value_error:
-        print(f"Caught ValueError: {value_error}\n")
-    
-    try:
+        int("abc")
+
+    elif error_type == "zero":
         print("Testing ZeroDivisionError...")
         10 / 0
-    except ZeroDivisionError as zero_division_error:
-        print(f"Caught ZeroDivisionError: {zero_division_error}\n")
-    
-    try:
+
+    elif error_type == "file":
         print("Testing FileNotFoundError...")
-        my_file = open("missing.txt")
-    except FileNotFoundError as file_not_found_error:
-        print(f"Caught FileNotFoundError: {file_not_found_error}\n")
-    
-    try:
+        open("missing.txt")
+
+    elif error_type == "key":
         print("Testing KeyError...")
-        print(my_dict["age"])
-    except KeyError as key_error:
-        print(f"Caught KeyError: {key_error}\n")
-    
-    try:
-        print("Testing multiple errors together...")
-        x = int("a")
-        10 / 0
-        print(my_dict["age"])
-        my_file = open("missing.txt")
-    except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError) as key_error:
-        print(f"Caught an error, but program continues!\n")
-    
+        print(my_dict["missing_plant"])
+
 
 def test_error_types():
-    """Run all error demonstrations"""
-    print("=== Garden Error Types Demo ===\n")
-    garden_operations()
+
+    """Run tests for different exception types."""
+
+    print("=== Garden Error Types Demo ===")
+
+    for error in ["value", "zero", "file", "key"]:
+        try:
+            garden_operations(error)
+
+        except ValueError as caught_error:
+            print(f"Caught ValueError: {caught_error}")
+
+        except ZeroDivisionError as caught_error:
+            print(f"Caught ZeroDivisionError: {caught_error}")
+
+        except FileNotFoundError as caught_error:
+            print(f"Caught FileNotFoundError: {caught_error}")
+
+        except KeyError as caught_error:
+            print(f"Caught KeyError: {caught_error}")
+
+    try:
+        print("Testing multiple errors together...")
+        int("abc")
+
+    except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError):
+        print("Caught an error, but program continues!")
+
     print("All error types tested successfully!")
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     test_error_types()

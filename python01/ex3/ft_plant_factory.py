@@ -1,26 +1,38 @@
 #!/usr/bin/env python3
 
 class Plant:
-    """Plant factory product."""
-    total = 0
+
+    """Represents a plant created by the factory."""
+
     def __init__(self, name: str, height: int, age: int) -> None:
-        self.name = name
+        """
+        Initialize a Plant instance.
+
+        :param name: Name of the plant
+        :param height: Height in centimeters
+        :param age: Age in days
+        """
+        self.name = name.capitalize()
         self.height = height
         self.age = age
-        Plant.total += 1
-        print(f"Created: {name.capitalize()} ({height}cm, {age} days)")
 
-    def show_total():
-        print(f"Total plants created: {Plant.total}")
 
 if __name__ == "__main__":
 
     print("=== Plant Factory Output ===")
 
-    rose = Plant("rose", 25, 30)
-    Oak = Plant("Oak", 200, 365)
-    Cactus = Plant("Cactus", 5, 90)
-    Sunflower = Plant("Sunflower", 80, 45)
-    Fern = Plant("Fern", 15, 120)
-    print()
-    Plant.show_total()
+    plants = [
+        Plant("Rose", 25, 30),
+        Plant("Oak", 200, 365),
+        Plant("Cactus", 5, 90),
+        Plant("Sunflower", 80, 45),
+        Plant("Fern", 15, 120)
+    ]
+
+    total = 0
+
+    for plant in plants:
+        print(f"Created: {plant.name} ({plant.height}cm, {plant.age} days)")
+        total += 1
+
+    print(f"\nTotal plants created: {total}")
