@@ -12,7 +12,6 @@ def create_data():
     except FileNotFoundError as e:
         print(e)
     finally:
-        my_file.close()
         print("\nData inscription complete. Storage unit sealed.")
 
 

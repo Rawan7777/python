@@ -8,7 +8,6 @@ def extract_data():
     except FileNotFoundError as e:
         print(e)
     finally:
-        my_file.close()
         print("\nData recovery complete. Storage unit disconnected.")
 
 
