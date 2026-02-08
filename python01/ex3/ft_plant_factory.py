@@ -5,13 +5,11 @@ class Plant:
     """Represents a plant created by the factory."""
 
     def __init__(self, name: str, height: int, age: int) -> None:
-        """
-        Initialize a Plant instance.
-
+        """Initialize a Plant instance.
         :param name: Name of the plant
         :param height: Height in centimeters
-        :param age: Age in days
-        """
+        :param age: Age in days"""
+
         self.name = name.capitalize()
         self.height = height
         self.age = age

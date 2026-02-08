@@ -5,23 +5,22 @@ class Plant:
     """Represents a growing plant."""
 
     def __init__(self, name: str, height: int, plant_age: int) -> None:
-        """
-        Initialize a Plant instance.
 
+        """Initialize a Plant instance.
         :param name: Name of the plant
         :param height: Height in centimeters
-        :param plant_age: Age in days
-        """
+        :param plant_age: Age in days"""
+
         self.name = name.capitalize()
         self.height = height
         self.plant_age = plant_age
 
-    def grow(self, height) -> None:
-        """Increase the plant's height by 1 cm."""
+    def grow(self, height: int) -> None:
+        """Increase the plant's height"""
         self.height += height
 
-    def age(self, days) -> None:
-        """Increase the plant's age by 1 day."""
+    def age(self, days: int) -> None:
+        """Increase the plant's age"""
         self.plant_age += days
 
     def get_info(self) -> str:
