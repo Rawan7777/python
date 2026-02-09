@@ -5,13 +5,12 @@ class Plant:
     """Base class for all plants in the garden."""
 
     def __init__(self, name: str, height: int, age: int) -> None:
-        """
-        Initialize a Plant instance.
 
+        """Initialize a Plant instance.
         :param name: Name of the plant
         :param height: Height in centimeters
-        :param age: Age in days
-        """
+        :param age: Age in days"""
+
         self.name = name.capitalize()
         self.height = height
         self.age = age
@@ -22,16 +21,15 @@ class Flower(Plant):
     """Represents a flower plant."""
 
     def __init__(self, name: str, height: int, age: int, color: str) -> None:
-        """Initialize a Flower instance.
 
+        """Initialize a Flower instance.
         Calls the parent Plant constructor using super() to initialize
         the common plant attributes (name, height, and age), then sets
         the flower-specific color attribute.
-
         :param color: Color of the flower"""
+
         super().__init__(name, height, age)
         self.color = color
-
 
     def bloom(self) -> None:
         """Simulate blooming of the flower."""
@@ -49,13 +47,13 @@ class Tree(Plant):
 
     def __init__(self, name: str, height: int, age: int, trunk_diameter: int
                  ) -> None:
-        """Initialize a Tree instance.
 
+        """Initialize a Tree instance
         Calls the parent Plant constructor using super() to initialize
         the common plant attributes (name, height, and age), then sets
         the tree-specific trunk diameter attribute.
-
         :param trunk_diameter: Diameter of the trunk in centimeters"""
+
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
 
@@ -76,15 +74,15 @@ class Vegetable(Plant):
 
     def __init__(self, name: str, height: int, age: int,
                  harvest_season: str, nutritional_value: str) -> None:
-        """Initialize a Vegetable instance.
 
+        """Initialize a Vegetable instance
         Calls the parent Plant constructor using super() to initialize
         the common plant attributes (name, height, and age), then sets
         the vegetable-specific harvest season and nutritional value
         attributes.
-
         :param harvest_season: Harvest season of the vegetable
         :param nutritional_value: Main nutritional value of the vegetable"""
+
         super().__init__(name, height, age)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
