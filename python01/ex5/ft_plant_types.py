@@ -4,7 +4,7 @@ class Plant:
 
     """Base class for all plants in the garden."""
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int):
 
         """Initialize a Plant instance.
         :param name: Name of the plant
@@ -102,9 +102,22 @@ if __name__ == "__main__":
     print(rose.get_info())
     rose.bloom()
 
+    tulip = Flower("tulip", 20, 25, "yellow")
+    print(tulip.get_info())
+    tulip.bloom()
+
     oak = Tree("oak", 500, 1825, 50)
     print(oak.get_info())
     oak.produce_shade()
 
+    maple = Tree("maple", 450, 1500, 40)
+    print(maple.get_info())
+    maple.produce_shade()
+
     tomato = Vegetable("tomato", 80, 90, "summer harvest", "vitamin C")
     print(tomato.get_info())
+
+    print()
+
+    potato = Vegetable("potato", 60, 70, "autumn harvest", "starch")
+    print(potato.get_info())

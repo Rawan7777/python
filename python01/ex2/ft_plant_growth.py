@@ -4,7 +4,7 @@ class Plant:
 
     """Represents a growing plant."""
 
-    def __init__(self, name: str, height: int, plant_age: int) -> None:
+    def __init__(self, name: str, height: int, plant_age: int):
 
         """Initialize a Plant instance.
         :param name: Name of the plant

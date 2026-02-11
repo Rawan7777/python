@@ -4,7 +4,7 @@ class SecurePlant:
 
     """Represents a plant with secure height and age attributes"""
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: int, age: int):
 
         """Initialize a SecurePlant instance.
         :param name: Name of the plant

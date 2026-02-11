@@ -22,7 +22,7 @@ class Plant:
             height (int): Growth amount in cm."""
 
         self.height += height
-        print(f"{self.name} grew 1cm")
+        print(f"{self.name} grew {height}cm")
 
     def get_info(self) -> str:
 
@@ -124,10 +124,11 @@ class GardenManager:
 
         print(f"\n{self.owner} is helping all plants grow...")
 
+        grow_amount = 1
         for plant in self.owner_garden:
-            plant.grow(1)
+            plant.grow(grow_amount)
             GardenManager.owners_score[self.owner] += 1
-        self.gowth_times += 1
+        self.gowth_times += grow_amount
 
     class GardenStats:
 
@@ -135,21 +136,26 @@ class GardenManager:
 
         plant_added = 0
 
-        @classmethod
-        def added_growth(cls, owner_garden: list[Plant],
-                         gowth_times: int) -> None:
+        def __init__(self, new_object):
+            self.new_object = new_object
+
+        def added_growth(self) -> None:
 
             """Print total plants added and growth.
                 owner_garden (list[Plant]): List of plants.
                 gowth_times (int): Growth cycles count."""
 
-            old_count = cls.plant_added
-            cls.plant_added = 0
-            for _ in owner_garden:
-                cls.plant_added += 1
-            
-            print(f"Plants added: {cls.plant_added - old_count},"
-                  f" Total growth: {cls.plant_added * gowth_times}cm")
+            old_count = GardenManager.GardenStats.plant_added
+            GardenManager.GardenStats.plant_added = 0
+            for _ in self.new_object.owner_garden:
+                GardenManager.GardenStats.plant_added += 1
+
+            plant_added = GardenManager.GardenStats.plant_added
+            gowth_times = self.new_object.gowth_times
+
+            print(f"Plants added: "
+                  f"{plant_added - old_count},"
+                  f" Total growth: {plant_added * gowth_times}cm")
 
         @staticmethod
         def plant_types(owner_garden: list[Plant]) -> dict[str, int]:
@@ -169,14 +175,13 @@ class GardenManager:
                     counts["PrizeFlower"] += 1
             return counts
 
-        @staticmethod
-        def height_validation_test(owner_garden: list[Plant]) -> bool:
+        def height_validation_test(self) -> bool:
 
             """Validate that no plant has negative height.
             owner_garden (list[Plant]): List of plants.
             Returns bool: Validation result."""
 
-            for plant in owner_garden:
+            for plant in self.new_object.owner_garden:
                 if plant.height < 0:
                     return False
             return True
@@ -197,7 +202,8 @@ class GardenManager:
 
         print()
 
-        self.GardenStats.added_growth(self.owner_garden, self.gowth_times)
+        self.new = self.GardenStats(self)
+        self.new.added_growth()
         self.gowth_times = 0
         my_dict = self.GardenStats.plant_types(self.owner_garden)
 
@@ -206,7 +212,7 @@ class GardenManager:
         print(f"{my_dict["PrizeFlower"]} prize flowers")
 
         print(f"\nHeight validation test: "
-              f"{self.GardenStats.height_validation_test(self.owner_garden)}")
+              f"{self.new.height_validation_test()}")
 
         print("Garden scores -", end=" ")
         counter = 0
