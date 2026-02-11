@@ -205,6 +205,7 @@ class GardenManager:
         self.new = self.GardenStats(self)
         self.new.added_growth()
         self.gowth_times = 0
+
         my_dict = self.GardenStats.plant_types(self.owner_garden)
 
         print(f"Plant types: {my_dict["Plant"]} regular", end=", ")
