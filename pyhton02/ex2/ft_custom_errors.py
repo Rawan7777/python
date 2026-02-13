@@ -9,9 +9,17 @@ class PlantError(GardenError):
 
     """Exception raised for plant-related problems."""
 
+    def __init__(self, message_error="PlantError occured"):
+        super().__init__(message_error)
+
+
 class WaterError(GardenError):
 
     """Exception raised for watering-related problems."""
+
+    def __init__(self, message_error="GardenError occured"):
+        super().__init__(message_error)
+
 
 def main():
 

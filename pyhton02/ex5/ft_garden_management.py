@@ -15,11 +15,6 @@ class WaterError(GardenError):
     """Water-related exception."""
 
 
-class HealthError(GardenError):
-
-    """Health-related exception."""
-
-
 class Plant:
 
     """Represents a plant in the garden."""
@@ -72,7 +67,6 @@ class GardenManager:
             if opened:
                 print("Closing watering system (cleanup)")
 
-
     def check_health(self, plant):
 
         """Check plant health."""
@@ -80,22 +74,22 @@ class GardenManager:
         name = plant.name
 
         if plant.water > 10:
-            raise HealthError(
+            raise PlantError(
                 f"Error checking {name}: Water level {plant.water} "
                 "is too high (max 10)"
             )
         if plant.water < 1:
-            raise HealthError(
+            raise PlantError(
                 f"Error checking {name}: Water level {plant.water} "
                 "is too low (min 1)"
             )
         if plant.sun > 12:
-            raise HealthError(
+            raise PlantError(
                 f"Error checking {name}: Sunlight hours {plant.sun} "
                 "is too high (max 12)"
             )
         if plant.sun < 2:
-            raise HealthError(
+            raise PlantError(
                 f"Error checking {name}: Sunlight hours {plant.sun} "
                 "is too low (min 2)"
             )
@@ -134,7 +128,7 @@ def main():
     try:
         manager.check_health(tomato)
         manager.check_health(lettuce)
-    except HealthError as e:
+    except PlantError as e:
         print(e)
 
     print("\nTesting error recovery...")

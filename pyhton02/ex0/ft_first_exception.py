@@ -21,6 +21,8 @@ def check_temperature(temp_str: str) -> None:
 
 def test_temperature_input():
 
+    """Run basic test cases for the check_temperature() function."""
+
     print("=== Garden Temperature Checker ===\n")
 
     print(check_temperature("25"))

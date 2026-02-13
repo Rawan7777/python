@@ -1,12 +1,6 @@
-import sys
-
-
-print("Program name:", sys.argv[0])
-
-if len(sys.argv) == 1:
-    print("No arguments provided")
-else:
-    i = 1
-    while i < len(sys.argv):
-        print(f"Arguments {i}: {sys.argv[i]}")
-        i += 1
+try:
+    x = 10 / 0  # This raises ZeroDivisionError
+except ValueError:
+    print("Caught a ValueError!")
+finally:
+    print("This always runs!")

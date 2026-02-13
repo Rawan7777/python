@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 
 def check_plant_health(plant_name, water_level, sunlight_hours):
-    """
-    Check whether a plant is healthy based on given parameters.
-    :param plant_name: Name of the plant
-    :param water_level: Water level (1–10)
-    :param sunlight_hours: Sunlight hours per day (2–12)
-    :raises ValueError: If any parameter is invalid
-    """
+
+    """Check whether a plant is healthy based on given parameters."""
+
     if not plant_name:
         raise ValueError("Error: Plant name cannot be empty!")
 
@@ -35,9 +31,9 @@ def check_plant_health(plant_name, water_level, sunlight_hours):
 
 
 def test_plant_checks():
-    """
-    Run test cases for the plant health checker.
-    """
+
+    """Run test cases for the plant health checker."""
+
     print("=== Garden Plant Health Checker ===\n")
 
     print("Testing good values...")
