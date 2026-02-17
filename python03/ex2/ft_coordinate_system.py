@@ -1,47 +1,127 @@
 #!/usr/bin/env python3
 
+import sys
 import math
 
-def calculate_3d_distance(p0, p1):
 
-    distance = math.sqrt( pow(p0[0] - int(p1[0]), 2) + pow(p0[1] - int(p1[1]), 2) + pow(p0[2] - int(p1[2]), 2))
-    return f"Distance between {p0} and {p1}: {distance:.2f}\n"
+def create_position(x: int, y: int, z: int) -> tuple[int, int, int]:
+    """Create a 3D position tuple from x, y, z coordinates."""
+    return (x, y, z)
 
 
-def split_coordinates(coord_string):
-    parts = coord_string.split(",")
-    return (int(parts[0]), int(parts[1]), int(parts[2]))
+def distance_3d(p1: tuple[int, int, int],
+                p2: tuple[int, int, int]) -> float:
+
+    """Calculate the Euclidean distance between two 3D points."""
+
+    x1, y1, z1 = p1
+    x2, y2, z2 = p2
+
+    return math.sqrt(
+        pow((x2 - x1), 2) +
+        pow((y2 - y1), 2) +
+        pow((z2 - z1), 2)
+    )
+
+
+def parse_coordinates(coord_string: str) -> tuple[int, int, int]:
+
+    """Parse a coordinate string formatted as 'x,y,z' or '(x,y,z)'
+    into a tuple of integers."""
+
+    parts = coord_string.strip().split(",")
+
+    return tuple(int(num) for num in parts)
 
 
 if __name__ == "__main__":
 
+    print("=== Game Coordinate System ===\n")
+
     zero_position = (0, 0, 0)
 
-    initial_position = (10, 20, 5)
-    print(f"Position created: {initial_position}")
-    try:
-        message = calculate_3d_distance(zero_position, initial_position)
-    except Exception as e:
-        print(e)
-    else:
-        print(message)
+    if len(sys.argv) > 1:
+        try:
 
-    parsing_position = split_coordinates("3,4,0")
-    print(f"Parsing coordinates: \"{parsing_position[0]},{parsing_position[1]},{parsing_position[2]}\"")
-    try:
-        message = calculate_3d_distance(zero_position, parsing_position)
-    except Exception as e:
-        print(e)
-    else:
-        print(message)
+            if len(sys.argv) == 4 or len(sys.argv) == 2:
 
-    invalid_position = ("abc", "def", "ghi")
-    print("Parsing invalid coordinates: \"abc,def,ghi\"")
-    try:
-        message = calculate_3d_distance(zero_position, invalid_position)
-    except Exception as e:
-        print(f"Error parsing coordinates: {e}")
-        print(f"Error details - Type: {type(e).__name__}, Args: {e.args}")
-    else:
-        print(message)
+                if len(sys.argv) == 4:
 
+                    print(f"Parsing coordinates: {sys.argv[1:]}")
+
+                    parsing_coordinates = ",".join(sys.argv[1:])
+                    parsed_position = parse_coordinates(parsing_coordinates)
+
+                elif len(sys.argv) == 2:
+
+                    print(f"Parsing coordinates: \"{sys.argv[1]}\"")
+                    parsed_position = parse_coordinates(sys.argv[1])
+
+                print(f"Parsed position: {parsed_position}")
+
+                dist = distance_3d(zero_position, parsed_position)
+
+                print(
+                    f"Distance between {zero_position} "
+                    f"and {parsed_position}: {dist:.2f}\n"
+                )
+
+                print("Unpacking demonstration:")
+                x, y, z = parsed_position
+                print(f"Player at x={x}, y={y}, z={z}")
+                print(f"Coordinates: X={x}, Y={y}, Z={z}")
+
+            else:
+
+                print("Invalid coordinates format,", end=" ")
+                print("try one string like ' \"3,4,0\" ',", end=" ")
+                print("or 3 values like ' 10 20 5 '")
+
+        except Exception as e:
+
+            print(f"Error parsing coordinates: {e}")
+            print(
+                f"Error details - Type: "
+                f"{type(e).__name__}, Args: {e.args}\n"
+            )
+
+    else:
+
+        player_position = create_position(10, 20, 5)
+        print(f"Position created: {player_position}")
+
+        dist = distance_3d(zero_position, player_position)
+
+        print(
+            f"Distance between {zero_position} "
+            f"and {player_position}: {dist:.2f}\n"
+        )
+
+        coord_text = "3,4,0"
+        print(f"Parsing coordinates: \"{coord_text}\"")
+        player_position = parse_coordinates(coord_text)
+        print(f"Parsed position: {player_position}")
+
+        dist2 = distance_3d(zero_position, player_position)
+
+        print(
+            f"Distance between {zero_position} "
+            f"and {player_position}: {dist2:.1f}\n"
+        )
+
+        invalid_text = "abc,def,ghi"
+        print(f"Parsing invalid coordinates: \"{invalid_text}\"")
+
+        try:
+            parse_coordinates(invalid_text)
+        except Exception as e:
+            print(f"Error parsing coordinates: {e}")
+            print(
+                f"Error details - Type: "
+                f"{type(e).__name__}, Args: {e.args}\n"
+            )
+
+        print("Unpacking demonstration:")
+        x, y, z = player_position
+        print(f"Player at x={x}, y={y}, z={z}")
+        print(f"Coordinates: X={x}, Y={y}, Z={z}")

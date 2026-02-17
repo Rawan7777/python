@@ -52,39 +52,39 @@ data = {
     ]
 }
 
-alice_achiev = set(data["alice"])
-bob_achiev = set(data["bob"])
-charlie_achiev = set(data["charlie"])
-
 print("=== Achievement Tracker System ===\n")
 
-print(f"Player alice achievements: {alice_achiev}")
-print(f"Player bob achievements: {bob_achiev}")
-print(f"Player charlie achievements: {charlie_achiev}")
+player_sets = {}
+
+for player, achievements in data.items():
+    player_sets[player] = set(achievements)
+    print(f"Player {player} achievements: {player_sets[player]}")
 
 print("\n=== Achievement Analytics ===")
 
-union_set = alice_achiev.union(bob_achiev).union(charlie_achiev)
-print(f"All unique achievements: {union_set}")
-print(f"Total unique achievements: {len(union_set)}\n")
+all_unique = set.union(*player_sets.values())
+print(f"All unique achievements: {all_unique}")
+print(f"Total unique achievements: {len(all_unique)}\n")
 
-intersiction_set = alice_achiev.intersection(bob_achiev).intersection(charlie_achiev)
-print(f"Common to all players: {intersiction_set}")
+common_all = set.intersection(*player_sets.values())
+print(f"Common to all players: {common_all}")
 
-bob_difference_set = bob_achiev.difference(charlie_achiev)
-charlie_difference_set = charlie_achiev.difference(bob_achiev)
+achievement_count = {}
 
-difference_set = bob_difference_set
-difference_set.update(charlie_difference_set)
+for achievements in player_sets.values():
+    for ach in achievements:
+        if ach in achievement_count:
+            achievement_count[ach] += 1
+        else:
+            achievement_count[ach] = 1
 
-difference_sett = difference_set.difference(alice_achiev)
-print(f"Rare achievements (1 player): {difference_sett}\n")
+rare = {ach for ach, count in achievement_count.items() if count == 1}
+print(f"Rare achievements (1 player only): {rare}\n")
 
-alice_vs_bob = alice_achiev.intersection(bob_achiev)
-print(f"Alice vs Bob common: {alice_vs_bob}")
+common = player_sets["alice"].intersection(player_sets["bob"])
+unique_alice = player_sets["alice"].difference(player_sets["bob"])
+unique_bob = player_sets["bob"].difference(player_sets["alice"])
 
-alice_unique = alice_achiev.difference(bob_achiev)
-print(f"Alice unique:: {alice_unique}")
-
-bob_unique = bob_achiev.difference(alice_achiev)
-print(f"Bob unique: {bob_unique}")
+print(f"Alice vs Bob common: {common}")
+print(f"Alice unique: {unique_alice}")
+print(f"Bob unique: {unique_bob}")

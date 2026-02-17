@@ -1,97 +1,195 @@
-alice_inventory = {
-    "sword": {"type": "weapon", "rarity": "rare", "count": 1, "cost": 500},
-    "potion": {"type": "consumable", "rarity": "common", "count": 5, "cost": 50},
-    "shield": {"type": "armor", "rarity": "uncommon", "count": 1, "cost": 200},
-
+data = {
+    'players': {
+        'alice': {
+            'items': {
+                'pixel_sword': 1,
+                'code_bow': 1,
+                'health_byte': 1,
+                'quantum_ring': 3
+            },
+            'total_value': 1875,
+            'item_count': 6
+        },
+        'bob': {
+            'items': {
+                'code_bow': 3,
+                'pixel_sword': 2
+            },
+            'total_value': 900,
+            'item_count': 5
+        },
+        'charlie': {
+            'items': {
+                'pixel_sword': 1,
+                'code_bow': 1
+            },
+            'total_value': 350,
+            'item_count': 2
+        },
+        'diana': {
+            'items': {
+                'code_bow': 3,
+                'pixel_sword': 3,
+                'health_byte': 3,
+                'data_crystal': 3
+            },
+            'total_value': 4125,
+            'item_count': 12
+        }
+    },
+    'catalog': {
+        'pixel_sword': {
+            'type': 'weapon',
+            'value': 150,
+            'rarity': 'common'
+        },
+        'quantum_ring': {
+            'type': 'accessory',
+            'value': 500,
+            'rarity': 'rare'
+        },
+        'health_byte': {
+            'type': 'consumable',
+            'value': 25,
+            'rarity': 'common'
+        },
+        'data_crystal': {
+            'type': 'material',
+            'value': 1000,
+            'rarity': 'legendary'
+        },
+        'code_bow': {
+            'type': 'weapon',
+            'value': 200,
+            'rarity': 'uncommon'
+        }
+    }
 }
-bob_inventory = {
-    "magic_ring": {"type": "accessory", "rarity": "rare", "count": 1, "cost": 400}
 
-}
+print("=== Player Inventory System ===\n")
 
-print("=== Alice's Inventory ===")
+user = "alice"
 
-inventory_value = 0
-item_count = 0
+print(f"=== {user.capitalize()}'s Inventory ===")
 
-for key in alice_inventory:
+user_items = data.get('players', {}).get(user, {}).get('items', {})
+inventory_value = data.get('players', {}).get(user, {}).get('total_value', 0)
+item_count = data.get('players', {}).get(user, {}).get('item_count', 0)
+catalog = data['catalog']
+items_types = {}
 
-    print(f"{key} ({alice_inventory[key]["type"]}, {alice_inventory[key]["rarity"]}): "
-          f"{alice_inventory[key]["count"]}x @ {alice_inventory[key]["cost"]} gold each "
-          f"= {alice_inventory[key]["count"] * alice_inventory[key]["cost"]} gold")
 
-    inventory_value += alice_inventory[key]["count"] * alice_inventory[key]["cost"]
-    item_count += alice_inventory[key]["count"]
+# for item, count in alice_inventory.items():
 
-print(f"\nInventory value: {inventory_value} gold")
-print(f"Item count: {item_count} items")
-print("Categories: ", end="")
+#     print(f"{item} ({catalog[item]['type']}, {catalog[item]['rarity']}): "
+#           f"{count}x @ {catalog[item]['value']} gold each "
+#           f"= {count * catalog[item]['value']} gold")
 
-dict_len = len(alice_inventory)
-for key in alice_inventory:
-    print(f"{alice_inventory[key]["type"]}({alice_inventory[key]["count"]})", end="")
-    if dict_len > 1:
-        print(",", end=" ")
-    dict_len -= 1
+#     if catalog[item]['type'] in items_types:
+#         items_types[catalog[item]['type']] += 1
+#     else:
+#         items_types[catalog[item]['type']] = 1
 
-print("=== Transaction: Alice gives Bob 2 potions ===")
+# print(f"\nInventory value: {inventory_value} gold")
+# print(f"Item count: {item_count} items")
+# print("Categories: ", end="")
 
-def update_bob_inventory():
-    alice_inventory["potion"]["count"] -= 2
+# dict_len = len(items_types)
 
-    bob_inventory.update({
-                "potion": {"type": "consumable","rarity": "common",
-                "count": 0,"cost": 0}
-                })
-    bob_inventory["potion"]["count"] += 2
-    bob_inventory["potion"]["cost"] = alice_inventory["potion"]["cost"]
+# for item, count in items_types.items():
+#     print(f"{item}({count})", end="")
+#     if dict_len > 1:
+#         print(",", end=" ")
+#     dict_len -= 1
 
-    print("Transaction successful!")
+fromm, to, item, count = "alice" , "bob", "pixel_sword", 1
 
-update_bob_inventory()
+print(f"\n\n=== Transaction: {fromm.capitalize()} gives {to.capitalize()} {count} {item} ===")
 
-print("=== Updated Inventories ===")
+from_items = data.get('players', {}).get(fromm, {}).get('items', {})
+to_items = data.get('players', {}).get(to, {}).get('items', {})
+how_many = from_items.get(item, -1)
 
-print(f"Alice potions: {alice_inventory["potion"]["count"]}")
-print(f"Bob potions: {bob_inventory["potion"]["count"]}")
+def update_inventory():
 
-alice_value = 0
-alice_items = 0
-for key in alice_inventory:
-    alice_value += alice_inventory[key]["count"] * alice_inventory[key]["count"]
-    alice_items += alice_inventory[key]["count"]
+    from_inventory = data.get('players', {}).get(fromm, {})
+    from_items = from_inventory.get('items', {})
+    to_inventory = data.get('players', {}).get(to, {})
+    to_items = to_inventory.get('items', {})
+    how_many = from_items.get(item, -1)
 
-bob_value = 0
-bob_items = 0
-for key in bob_inventory:
-    bob_value += bob_inventory[key]["count"] * bob_inventory[key]["count"]
-    bob_items += bob_inventory[key]["count"]
+    print(from_items)
+    print(to_items)
 
-if alice_value > bob_value:
-    print(f"Most valuable player: Alice ({alice_value} gold)")
+    if how_many != -1:
+        if how_many - count >= 0:
+
+            if how_many - count > 0:
+                from_items[item] -= count
+            else:
+                del from_items[item]
+            
+            from_inventory['total_value'] -= catalog[item]['value'] * count
+
+            if item in to_items.items():
+                to_items[item] += count
+            else:
+                to_items[item] = count
+
+            to_inventory['total_value'] += catalog[item]['value'] * count
+            print("Transaction successful!")
+            
+        else:
+            print(f"Alice have only {how_many} of {item}")
+    else:
+        print(f"Alice do not have the item '{item}'")
+
+    print(from_items)
+    print(to_items)
+
+update_inventory()
+
+# print("=== Updated Inventories ===")
+
+print(f"Alice potions: {from_items.get(item, 0)}")
+print(f"Bob potions: {to_items.get(item, 0)}")
+
+from_value = data.get('players', {}).get(fromm, {}).get('total_value', 0)
+to_value = data.get('players', {}).get(to, {}).get('total_value', 0)
+
+if from_value > to_value:
+    print(f"Most valuable player: {fromm} ({from_value} gold)")
 else:
-    print(f"Most valuable player: Bob ({bob_value} gold)")
+    print(f"Most valuable player: {to} ({to_value} gold)")
 
-if alice_items > bob_items:
-    print(f"Most items: Alice ({alice_value} items)")
+from_count = data.get('players', {}).get(fromm, {}).get('item_count', 0)
+to_count = data.get('players', {}).get(to, {}).get('item_count', 0)
+
+if from_count > to_count:
+    print(f"Most items: {fromm} ({from_count} items)")
 else:
-    print(f"Most items: Bob ({bob_value} items)")
+    print(f"Most items: {to} ({to_count} items)")
 
-rarest_items = []
+# if alice_items > bob_items:
+#     print(f"Most items: Alice ({alice_value} items)")
+# else:
+#     print(f"Most items: Bob ({bob_value} items)")
 
-for key in alice_inventory:
-    if alice_inventory[key]["rarity"] == "rare":
-        rarest_items.append(key)
+# rarest_items = []
 
-for key in bob_inventory:
-    if bob_inventory[key]["rarity"] == "rare":
-        rarest_items.append(key)
+# for key in alice_inventory:
+#     if alice_inventory[key]["rarity"] == "rare":
+#         rarest_items.append(key)
 
-items_len = len(rarest_items)
+# for key in bob_inventory:
+#     if bob_inventory[key]["rarity"] == "rare":
+#         rarest_items.append(key)
 
-print("Rarest items:", end=" ")
-for item in rarest_items:
-    print(item, end="")
-    if items_len > 1:
-        print(", ", end="")
-    items_len -= 1
+# items_len = len(rarest_items)
+
+# print("Rarest items:", end=" ")
+# for item in rarest_items:
+#     print(item, end="")
+#     if items_len > 1:
+#         print(", ", end="")
+#     items_len -= 1
