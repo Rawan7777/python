@@ -84,10 +84,19 @@ if __name__ == "__main__":
     rare = {ach for ach, count in achievement_count.items() if count == 1}
     print(f"Rare achievements (1 player only): {rare}\n")
 
-    common = player_sets["alice"].intersection(player_sets["bob"])
-    unique_alice = player_sets["alice"].difference(player_sets["bob"])
-    unique_bob = player_sets["bob"].difference(player_sets["alice"])
+    try:
+        player1 = "alice"
+        player2 = "bob"
 
-    print(f"Alice vs Bob common: {common}")
-    print(f"Alice unique: {unique_alice}")
-    print(f"Bob unique: {unique_bob}")
+        common = player_sets[player1].intersection(player_sets[player2])
+        unique1 = player_sets[player1].difference(player_sets[player2])
+        unique2 = player_sets[player2].difference(player_sets[player1])
+
+        print(f"{player1.capitalize()} vs "
+              f"{player2.capitalize()} common: {common}")
+
+        print(f"{player1.capitalize()} unique: {unique1}")
+        print(f"{player2.capitalize()} unique: {unique2}")
+
+    except KeyError as error:
+        print(f"Error: {error} not found")

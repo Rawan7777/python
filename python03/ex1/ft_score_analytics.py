@@ -9,14 +9,14 @@ if __name__ == "__main__":
     print("=== Player Score Analytics ===")
 
     if len(sys.argv) == 1:
-        print("No scores provided. Usage:"
+        print("No scores provided. Usage: "
               "python3 ft_score_analytics.py <score1> <score2> ...")
     else:
         try:
             for i in range(1, len(sys.argv)):
                 scores.append(int(sys.argv[i]))
         except ValueError as error:
-            print(f" Error: {error}")
+            print(f"Error: {error}")
         else:
             total_players = len(scores)
             total_scores = sum(scores)

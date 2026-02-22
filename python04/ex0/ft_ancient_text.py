@@ -1,9 +1,13 @@
+#!/usr/bin/env python3
+
 def extract_data() -> None:
 
     """Establishes a connection to a storage file, reads its contents,
     and prints the recovered data."""
 
     print("Connection established...\n")
+
+    my_file = None
 
     try:
 
@@ -13,12 +17,10 @@ def extract_data() -> None:
         print(my_file.read())
 
     except Exception as error:
-
-        print(f"Error: {error}")
-
+        print("ERROR: Storage vault not found")
     finally:
-
-        my_file.close()
+        if my_file:
+            my_file.close()
         print("\nData recovery complete. Storage unit disconnected.")
 
 

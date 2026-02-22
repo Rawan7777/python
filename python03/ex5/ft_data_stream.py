@@ -595,7 +595,7 @@ def stream_processor():
             if event['data']['level'] > 10:
                 high_level += 1
 
-            if event['event_type'] == "found treasure":
+            if event['event_type'] == "found_treasure":
                 treasure_found += 1
 
             if event['event_type'] == "level_up":

@@ -276,28 +276,28 @@ data = {
 
 if __name__ == "__main__":
 
+    print("=== Game Analytics Dashboard ===")
+
     players = data['players']
     sessions = data['sessions']
     achievements = data['achievements']
 
-    print("=== Game Analytics Dashboard ===")
-
     print("\n=== List Comprehension Examples ===")
 
     high_scorers = [
-        p for p, d in players.items()
-        if d['total_score'] > 2000
+        p for p, v in players.items()
+        if v['total_score'] > 2000
     ]
     print(f"High scorers (>2000): {high_scorers}")
 
     scores_doubled = [
-        d['total_score'] * 2 for d in players.values()
+        v['total_score'] * 2 for v in players.values()
     ]
     print(f"Scores doubled: {scores_doubled}")
 
     active_players = [
-        p for p, d in players.items()
-        if d['sessions_played'] > 20
+        p for p, v in players.items()
+        if v['sessions_played'] > 20
     ]
     print(f"Active players: {active_players}")
 
@@ -311,8 +311,8 @@ if __name__ == "__main__":
 
     score_categories = {
         'high': sum(
-            1 for d in players.values()
-            if d['total_score'] > 5000
+            1 for v in players.values()
+            if v['total_score'] > 5000
         ),
         'medium': sum(
             1 for d in players.values()
@@ -333,14 +333,15 @@ if __name__ == "__main__":
 
     print("\n=== Set Comprehension Examples ===")
 
-    unique_players = {p for p in players.keys()}
+    unique_players = {n['player'] for n in sessions if n['completed'] is True
+                      and n['mode'] == "ranked"}
     print(f"Unique players: {unique_players}")
 
-    unique_achievements = {a for a in achievements}
+    unique_achievements = {a for a in achievements if '_' in a}
     print(f"Unique achievements: {unique_achievements}")
 
-    active_regions = {s['mode'] for s in sessions}
-    print(f"Active regions: {active_regions}")
+    active_modes = {s['mode'] for s in sessions}
+    print(f"Active modes: {active_modes}")
 
     print("\n=== Combined Analysis ===")
 
@@ -348,14 +349,14 @@ if __name__ == "__main__":
     total_unique_achievements = len(unique_achievements)
 
     average_score = (
-        sum(d['total_score'] for d in players.values())
+        sum(v['total_score'] for v in players.values())
         / total_players
     )
 
-    top_player_name = max(
-        players.items(),
-        key=lambda x: x[1]['total_score'],
-    )[0]
+    def get_total_score(key):
+        return players[key]['total_score']
+
+    top_player_name = max(players, key=get_total_score)
 
     top_player_score = players[top_player_name]['total_score']
     top_player_achievements = (
@@ -364,7 +365,7 @@ if __name__ == "__main__":
 
     print(f"Total players: {total_players}")
     print(f"Total unique achievements: {total_unique_achievements}")
-    print(f"Average score: {average_score}")
+    print(f"Average score: {average_score:.1f}")
     print(
         "Top performer: "
         f"{top_player_name} "
