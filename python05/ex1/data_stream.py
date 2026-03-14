@@ -186,6 +186,7 @@ class StreamProcessor:
     stream_objects: List[DataStream] = []
 
     def process_all(self, batches: List[dict]) -> None:
+
         for ele in batches:
             stream = ele["stream"]
             data = ele["data"]
@@ -194,6 +195,7 @@ class StreamProcessor:
             stream.process_batch(data)
 
     def get_stats_all(self) -> Generator[Dict[str, Union[str, int, float]], None, None]:
+
         for stream in StreamProcessor.stream_objects:
             yield stream.get_stats()
 
