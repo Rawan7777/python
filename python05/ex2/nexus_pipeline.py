@@ -89,7 +89,7 @@ class OutputStage:
             avg: float = sum(readings) / len(readings)
             return (
                 f"Stream summary: {len(readings)} readings,"
-                f" avg: {avg:.2f}\u00b0C"
+                f" avg: {avg:.2f}°C"
             )
         return "Error detected in OutputStage"
 
