@@ -1,4 +1,4 @@
-from Card import Card
+from .Card import Card
 
 class CreatureCard(Card):
 
@@ -6,8 +6,17 @@ class CreatureCard(Card):
 
         super().__init__(name, cost, rarity)
         self.type = "Creature"
-        self.attack = attack
-        self.health = health
+
+        if attack >= 0:
+            self.attack = attack
+        else:
+            self.attack = 0
+
+        if health >= 0:
+            self.health = health
+        else:
+            self.health = 0
+
         self.effect = "Creature summoned to battlefield"
 
     def play(self, game_state: dict) -> dict:
