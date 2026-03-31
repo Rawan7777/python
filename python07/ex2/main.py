@@ -3,33 +3,41 @@ from ex2.Magical import Magical
 from ex2.Combatable import Combatable
 from ex2.EliteCard import EliteCard
 
+def main() -> None:
 
-print("=== DataDeck Ability System ===\n")
+    try:
 
-print("EliteCard capabilities:")
+        print("=== DataDeck Ability System ===\n")
 
-classes = [Card, Combatable, Magical]
+        print("EliteCard capabilities:")
 
-for clas in classes:
-    methods = [f for f in dir(clas) if callable(getattr(clas, f)) and not f.startswith("__")]
+        classes = [Card, Combatable, Magical]
 
-    print(f"- {clas.__name__}: {methods}")
+        for clas in classes:
+            methods = [f for f in dir(clas) if callable(getattr(clas, f)) and not f.startswith("__")]
 
-print("\nPlaying Arcane Warrior (Elite Card):\n")
+            print(f"- {clas.__name__}: {methods}")
 
-elite_card = EliteCard("Arcane Warrior", 5, "Epic", 5, 3, "melee")
+        print("\nPlaying Arcane Warrior (Elite Card):\n")
 
-game_state = {'mana': 20}
+        elite_card = EliteCard("Arcane Warrior", 5, "Epic", 5, 3, "melee")
 
-print("Combat phase:")
-elite_card.play(game_state)
-print(f"Attack result: {elite_card.attack("Enemy")}")
-elite_card.play(game_state)
-print(f"Defense result: {elite_card.defend(2)}")
+        game_state = {'mana': 20}
 
-print("\nMagic phase:")
-print(f"Spell cast: {elite_card.cast_spell("Fireball", ["Enemy1", "Enemy2"])}")
-elite_card.play(game_state)
-print(f"Mana channel: {elite_card.channel_mana(7)}")
+        print("Combat phase:")
+        elite_card.play(game_state)
+        print(f"Attack result: {elite_card.attack('Enemy')}")
+        elite_card.play(game_state)
+        print(f"Defense result: {elite_card.defend(2)}")
 
-print("\nMultiple interface implementation successful!")
+        print("\nMagic phase:")
+        print(f"Spell cast: {elite_card.cast_spell('Fireball', ['Enemy1', 'Enemy2'])}")
+        elite_card.play(game_state)
+        print(f"Mana channel: {elite_card.channel_mana(7)}")
+
+        print("\nMultiple interface implementation successful!")
+
+    except Exception as exc:
+        print(f"Fatal error: {exc}")
+
+main()

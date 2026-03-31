@@ -25,8 +25,8 @@ def main() -> None:
 
         print(f"Hand: {turn_result['hand']}")
         print("\nTurn execution:")
-        print(f"Strategy: {turn_result["turn_execution"]['strategy']}")
-        print(f"Actions: {turn_result["turn_execution"]['actions']}")
+        print(f"Strategy: {turn_result['turn_execution']['strategy']}")
+        print(f"Actions: {turn_result['turn_execution']['actions']}")
 
         print(f"\nGame Report:\n{engine.get_engine_status()}")
 
