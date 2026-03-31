@@ -39,5 +39,4 @@ def main() -> None:
         print(f"Fatal error: {exc}")
 
 
-if __name__ == "__main__":
-    main()
+main()

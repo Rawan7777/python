@@ -7,7 +7,7 @@ class ArtifactCard(Card):
         super().__init__(name, cost, rarity)
 
         self.durability = durability
-        self.effect = f"Permanent: +{self.cost / 2:.0f} mana per turn"
+        # self.effect = f"Permanent: +{self.cost / 2:.0f} mana per turn"
         self.type = "Artifact"
 
     def play(self, game_state: dict) -> dict:

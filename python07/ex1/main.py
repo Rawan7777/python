@@ -12,8 +12,8 @@ def main() -> None:
         print("Building deck with different card types...")
 
         fire_dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
-        lightning_bolt = SpellCard("Lightning Bolt", 3, "Legendary", "damage")
-        mana_crystal = ArtifactCard("Mana Crystal", 2, "Legendary", 1, "Permanent: +1 mana per turn")
+        lightning_bolt = SpellCard("Lightning Bolt", 3, "Common", "damage")
+        mana_crystal = ArtifactCard("Mana Crystal", 2, "Common", 5, "Permanent: +1 mana per turn")
 
         deck = Deck()
 
