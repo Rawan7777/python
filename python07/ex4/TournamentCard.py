@@ -3,7 +3,9 @@ from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
 
+
 _K_FACTOR = 32
+
 
 class TournamentCard(Card, Combatable, Rankable):
     """
@@ -11,8 +13,8 @@ class TournamentCard(Card, Combatable, Rankable):
     Combines Card, Combatable, and Rankable interfaces.
     """
 
-    def __init__(self, name: str, cost: int, rarity: str, attack_power: int,
-        defense: int, rating: int) -> None:
+    def __init__(self, name: str, cost: int, rarity: str,
+                 attack_power: int, defense: int, rating: int) -> None:
 
         Card.__init__(self, name, cost, rarity)
 
@@ -22,7 +24,7 @@ class TournamentCard(Card, Combatable, Rankable):
         self._losses: int = 0
         self.rating: int = rating
 
-    #card
+    # card
 
     def get_card_info(self) -> Dict:
 
@@ -37,11 +39,11 @@ class TournamentCard(Card, Combatable, Rankable):
 
         return {
             "card_played": self.name,
-            "mana_used": self.cost,
+            "mana_used": game_state.get('mana'),
             "effect": "Tournament card enters the arena",
         }
 
-    #combatable
+    # combatable
 
     def attack(self, target) -> dict:
 
@@ -74,7 +76,7 @@ class TournamentCard(Card, Combatable, Rankable):
             "defense": self.defense,
         }
 
-    #rankable
+    # rankable
 
     def calculate_rating(self) -> int:
         """Return the stored ELO-style rating."""
@@ -100,7 +102,7 @@ class TournamentCard(Card, Combatable, Rankable):
             "record": f"{self._wins}-{self._losses}",
         }
 
-    #------
+    # ------
 
     def get_tournament_stats(self) -> Dict:
 

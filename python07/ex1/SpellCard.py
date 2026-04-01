@@ -1,5 +1,6 @@
 from ex0.Card import Card
 
+
 class SpellCard(Card):
 
     def __init__(self, name: str, cost: int, rarity: str, effect_type: str):
@@ -8,7 +9,6 @@ class SpellCard(Card):
         self.effect = f"Deal {self.cost} {self.effect_type} to target"
         self.type = "Spell"
 
-    
     def play(self, game_state: dict) -> dict:
 
         game_state['mana'] -= self.cost

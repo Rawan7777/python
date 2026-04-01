@@ -1,4 +1,15 @@
 from ex0.CreatureCard import CreatureCard
+from enum import Enum
+
+
+class RARITY(Enum):
+
+    LEGENDARY = "Legendary"
+    COMMON = "Common"
+    EPIC = "Epic"
+    RARE = "Rare"
+    UNCOMMON = "Uncommon"
+
 
 def main() -> None:
 
@@ -8,15 +19,19 @@ def main() -> None:
 
         print("Testing Abstract Base Class Design:\n")
 
-        fire_dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
-        goblin_warrior = CreatureCard("Goblin Warrior", 4, "Epic", 6, 4)
+        fire_dragon = CreatureCard("Fire Dragon", 5, RARITY.LEGENDARY.value,
+                                   7, 5)
+
+        goblin_warrior = CreatureCard("Goblin Warrior", 4, RARITY.EPIC.value,
+                                      6, 4)
 
         print("CreatureCard Info:")
         print(fire_dragon.get_card_info())
 
         game_state = {'mana': 6}
 
-        print(f"\nPlaying {fire_dragon.name} with {game_state['mana']} mana available:")
+        print(f"\nPlaying {fire_dragon.name} with "
+              f"{game_state['mana']} mana available:")
         print(f"Playable: {fire_dragon.is_playable(game_state['mana'])}\n")
 
         print(f"Play result: {fire_dragon.play(game_state)}")
@@ -33,5 +48,6 @@ def main() -> None:
 
     except Exception as exc:
         print(f"Fatal error: {exc}")
+
 
 main()

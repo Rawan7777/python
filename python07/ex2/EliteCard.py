@@ -2,11 +2,13 @@ from ex0.Card import Card
 from .Combatable import Combatable
 from .Magical import Magical
 
+
 class EliteCard(Card, Combatable, Magical):
 
     channeled = 0
 
-    def __init__(self, name, cost, rarity, attack_power, defense_power, combat_type):
+    def __init__(self, name, cost, rarity, attack_power,
+                 defense_power, combat_type):
 
         super().__init__(name, cost, rarity)
 
@@ -57,7 +59,7 @@ class EliteCard(Card, Combatable, Magical):
         }
 
     def get_magic_stats(self) -> dict:
-        
+
         return {
             "name": self.name,
             "cpst": self.cpst,
@@ -76,9 +78,9 @@ class EliteCard(Card, Combatable, Magical):
             "damage_blocked": self.defense_power,
             "still_alive": self.alive
         }
-    
+
     def get_combat_stats(self) -> dict:
-        
+
         return {
             "damage_stats": self.damage_stats,
             "damage_taken": self.damage_taken,

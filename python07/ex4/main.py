@@ -3,14 +3,26 @@ from ex4.TournamentPlatform import TournamentPlatform
 from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
+from enum import Enum
+
+
+class RARITY(Enum):
+
+    LEGENDARY = "Legendary"
+    COMMON = "Common"
+    EPIC = "Epic"
+    RARE = "Rare"
+    UNCOMMON = "Uncommon"
+
 
 def main() -> None:
 
     print("\n=== DataDeck Tournament Platform ===\n")
     print("Registering Tournament Cards...")
 
-    dragon = TournamentCard("Fire Dragon", 5, "Legendary", 7, 5, 1200)
-    wizard = TournamentCard("Ice Wizard", 4, "Rare", 4, 3, 1150)
+    dragon = TournamentCard("Fire Dragon", 5, RARITY.LEGENDARY.value,
+                            7, 5, 1200)
+    wizard = TournamentCard("Ice Wizard", 4, RARITY.RARE.value, 4, 3, 1150)
 
     platform = TournamentPlatform()
 
@@ -22,7 +34,8 @@ def main() -> None:
         info = card.get_rank_info()
 
         print(f"\n{card.name} (ID: {card_id}):")
-        print(f"- Interfaces: [{Card.__name__}, {Combatable.__name__}, {Rankable.__name__}]")
+        print(f"- Interfaces: [\
+              {Card.__name__}, {Combatable.__name__}, {Rankable.__name__}]")
         print(f"- Rating: {info['rating']}")
         print(f"- Record: {info['record']}")
 

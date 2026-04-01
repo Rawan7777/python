@@ -2,6 +2,7 @@ from ex0.Card import Card
 import math
 import random
 
+
 class Deck:
 
     cards = []
@@ -13,7 +14,7 @@ class Deck:
 
         for card in Deck.cards:
             if card.name == card_name:
-                Deck.cards.remove(card);
+                Deck.cards.remove(card)
                 return True
         return False
 
@@ -42,7 +43,6 @@ class Deck:
                 creature += 1
 
             total_cost += card.cost
-            
 
             avg_cost = total_cost / len(Deck.cards)
 
