@@ -51,7 +51,7 @@ def main() -> None:
             print(f"Play result: {card.play(game_state)}\n")
 
         print("Polymorphism in action: Same interface, \
-              different card behaviors!")
+different card behaviors!")
 
     except Exception as exc:
         print(f"Fatal error: {exc}")

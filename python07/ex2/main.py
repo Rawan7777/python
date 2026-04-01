@@ -44,8 +44,12 @@ def main() -> None:
         print(f"Defense result: {elite_card.defend(2)}")
 
         print("\nMagic phase:")
-        print(f"Spell cast: {elite_card.cast_spell('Fireball',
-                                                   ['Enemy1', 'Enemy2'])}")
+        spell_result = elite_card.cast_spell(
+            'Fireball',
+            ['Enemy1', 'Enemy2']
+        )
+        print(f"Spell cast: {spell_result}")
+
         elite_card.play(game_state)
         print(f"Mana channel: {elite_card.channel_mana(7)}")
 

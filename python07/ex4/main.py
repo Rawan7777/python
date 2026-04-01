@@ -35,7 +35,7 @@ def main() -> None:
 
         print(f"\n{card.name} (ID: {card_id}):")
         print(f"- Interfaces: [\
-              {Card.__name__}, {Combatable.__name__}, {Rankable.__name__}]")
+{Card.__name__}, {Combatable.__name__}, {Rankable.__name__}]")
         print(f"- Rating: {info['rating']}")
         print(f"- Record: {info['record']}")
 

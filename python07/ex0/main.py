@@ -32,7 +32,7 @@ def main() -> None:
 
         print(f"\nPlaying {fire_dragon.name} with "
               f"{game_state['mana']} mana available:")
-        print(f"Playable: {fire_dragon.is_playable(game_state['mana'])}\n")
+        print(f"Playable: {fire_dragon.is_playable(game_state['mana'])}")
 
         print(f"Play result: {fire_dragon.play(game_state)}")
 

@@ -32,7 +32,7 @@ def main() -> None:
 
         print(
             "\nAbstract Factory + Strategy Pattern:\
-            Maximum flexibility achieved!"
+Maximum flexibility achieved!"
         )
 
     except Exception as exc:
