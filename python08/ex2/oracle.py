@@ -23,75 +23,82 @@ def load_config():
 
 
 def main():
-    print("ORACLE STATUS: Reading the Matrix...\n")
 
-    config = load_config()
-    missing = [key for key, value in config.items() if not value]
+    try:
 
-    if missing:
-        print("WARNING: Missing variables:", ", ".join(missing))
+        print("ORACLE STATUS: Reading the Matrix...\n")
 
-    print("Configuration loaded:")
-    print(f"Mode: {config.get('MATRIX_MODE')}")
-    print(
-        "Database:",
-        "Connected to local instance"
-        if config.get("DATABASE_URL")
-        else "Not configured",
-    )
-    print(
-        "API Access:",
-        "Authenticated" if config.get("API_KEY") else "Missing key",
-    )
-    print(f"Log Level: {config.get('LOG_LEVEL')}")
-    print(
-        "Zion Network:",
-        "Online" if config.get("ZION_ENDPOINT") else "Offline",
-    )
+        config = load_config()
+        missing = [key for key, value in config.items() if not value]
 
-    print("\nEnvironment security check:")
+        if missing:
+            print("WARNING: Missing variables:", ", ".join(missing))
 
-    # Detect obvious placeholder / hardcoded secret values
-    suspicious_values = {
-        "development", "sqlite:///matrix.db",
-        "your_api_key_here", "DEBUG",
-        "https://zion.local/api"
-    }
+        print("Configuration loaded:")
+        print(f"Mode: {config.get('MATRIX_MODE')}")
+        print(
+            "Database:",
+            "Connected to local instance"
+            if config.get("DATABASE_URL")
+            else "Not configured",
+        )
+        print(
+            "API Access:",
+            "Authenticated" if config.get("API_KEY") else "Missing key",
+        )
+        print(f"Log Level: {config.get('LOG_LEVEL')}")
+        print(
+            "Zion Network:",
+            "Online" if config.get("ZION_ENDPOINT") else "Offline",
+        )
 
-    hardcoded_detected = any(
-        str(value).lower() in suspicious_values
-        for value in config.values()
-        if value
-    )
+        print("\nEnvironment security check:")
 
-    print(
-        "[OK] No hardcoded secrets detected"
-        if not hardcoded_detected
-        else "[KO] Possible hardcoded secrets detected",
-    )
+        # Detect obvious placeholder / hardcoded secret values
+        suspicious_values = {
+            "development", "sqlite:///matrix.db",
+            "your_api_key_here", "DEBUG",
+            "https://zion.local/api"
+        }
 
-    # Check if .env file exists and contains at least one required key
-    env_file_values = dotenv_values(".env")
-    dotenv_configured = any(key in env_file_values for key in REQUIRED)
+        hardcoded_detected = any(
+            str(value).lower() in suspicious_values
+            for value in config.values()
+            if value
+        )
 
-    print(
-        "[OK] .env file properly configured"
-        if dotenv_configured
-        else "[KO] .env file missing or incomplete",
-    )
+        print(
+            "[OK] No hardcoded secrets detected"
+            if not hardcoded_detected
+            else "[KO] Possible hardcoded secrets detected",
+        )
 
-    # Check if any variable is overridden by real environment variables
-    overrides_present = any(
-        os.environ.get(key) != env_file_values.get(key)
-        for key in REQUIRED
-        if os.environ.get(key)
-    )
+        # Check if .env file exists and contains at least one required key
+        env_file_values = dotenv_values(".env")
+        dotenv_configured = any(key in env_file_values for key in REQUIRED)
 
-    print(
-        "[OK] Production overrides available"
-        if overrides_present
-        else "[KO] No environment overrides detected",
-    )
+        print(
+            "[OK] .env file properly configured"
+            if dotenv_configured
+            else "[KO] .env file missing or incomplete",
+        )
+
+        # Check if any variable is overridden by real environment variables
+        overrides_present = any(
+            os.environ.get(key) != env_file_values.get(key)
+            for key in REQUIRED
+            if os.environ.get(key)
+        )
+
+        print(
+            "[OK] Production overrides available"
+            if overrides_present
+            else "[KO] No environment overrides detected",
+        )
+
+    except Exception as error:
+        # Fallback message if error occured
+        print(f"Error occured {error}")
 
 
 if __name__ == "__main__":

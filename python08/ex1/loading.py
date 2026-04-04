@@ -58,31 +58,38 @@ def run_analysis():
 
 # Program entry point
 def main():
-    print("LOADING STATUS: Loading programs...\n")
 
-    # Verify dependencies before running the analysis
-    versions, missing = check_dependencies()
+    try:
 
-    if missing:
-        print("Missing dependencies:", ", ".join(missing))
-        print("Install with: pip install -r requirements.txt")
-        print("OR poetry install")
-        sys.exit(1)
+        print("LOADING STATUS: Loading programs...\n")
 
-    # Friendly status messages for each dependency
-    descriptions = {
-        "pandas": "Data manipulation ready",
-        "numpy": "Numerical computing ready",
-        "matplotlib": "Visualization ready",
-    }
+        # Verify dependencies before running the analysis
+        versions, missing = check_dependencies()
 
-    # Print detected package versions
-    for pkg, ver in versions.items():
-        msg = descriptions.get(pkg, "ready")
-        print(f"[OK] {pkg} ({ver}) - {msg}")
+        if missing:
+            print("Missing dependencies:", ", ".join(missing))
+            print("Install with: pip install -r requirements.txt")
+            print("OR poetry install")
+            sys.exit(1)
 
-    print("\nAnalyzing Matrix data...")
-    run_analysis()
+        # Friendly status messages for each dependency
+        descriptions = {
+            "pandas": "Data manipulation ready",
+            "numpy": "Numerical computing ready",
+            "matplotlib": "Visualization ready",
+        }
+
+        # Print detected package versions
+        for pkg, ver in versions.items():
+            msg = descriptions.get(pkg, "ready")
+            print(f"[OK] {pkg} ({ver}) - {msg}")
+
+        print("\nAnalyzing Matrix data...")
+        run_analysis()
+
+    except Exception as error:
+        # Fallback message if error occured
+        print(f"Error occured {error}")
 
 
 # Ensure script runs only when executed directly
