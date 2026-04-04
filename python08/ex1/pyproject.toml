@@ -1,0 +1,12 @@
+
+[tool.poetry]
+name = "ex1"
+version = "0.0"
+description = "Matrix data analysis"
+authors = ["brouane"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
