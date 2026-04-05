@@ -13,20 +13,6 @@ You are designing **extensible systems**.
 
 ---
 
-# 📚 Table of Contents
-
-* Overview
-* Learning Goals
-* Core Concepts
-* Project Architecture
-* Exercises Breakdown
-* Repository Structure
-* How to Run
-* Example Outputs
-* Evaluation Tips
-
----
-
 # 🧠 Overview
 
 Imagine building the engine behind games like:
