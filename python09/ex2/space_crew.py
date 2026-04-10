@@ -65,6 +65,7 @@ or Captain")
 
 
 def load_missions(path: str) -> list[SpaceMission]:
+
     with open(path, "r") as f:
         raw_data = json.load(f)
 
@@ -96,6 +97,7 @@ def main():
         specialization=working_missions['crew'][0]['specialization'],
         years_experience=working_missions['crew'][0]['years_experience']
     )
+
     james = CrewMember(
         member_id=working_missions['crew'][1]['member_id'],
         name=working_missions['crew'][1]['name'],
@@ -104,6 +106,7 @@ def main():
         specialization=working_missions['crew'][1]['specialization'],
         years_experience=working_missions['crew'][1]['years_experience']
     )
+
     anna = CrewMember(
         member_id=working_missions['crew'][2]['member_id'],
         name=working_missions['crew'][2]['name'],
