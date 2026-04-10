@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
 from typing import List
 from enum import Enum
+import json
 
 
 class Rank(str, Enum):
@@ -63,34 +64,67 @@ or Captain")
         return self
 
 
+def load_missions(path: str) -> list[SpaceMission]:
+    with open(path, "r") as f:
+        raw_data = json.load(f)
+
+    missions = []
+
+    for item in raw_data:
+        try:
+            missions.append(item)
+        except Exception as e:
+            print(e)
+
+    return missions
+
+
 def main():
 
     print("Space Mission Crew Validation")
     print("=========================================")
 
+    missions = load_missions("space_missions.json")
+
+    working_missions = missions[0]
+
+    # print(working_missions)
+
     sarah = CrewMember(
-        member_id="CM001", name="Sarah Connor", rank=Rank.commander,
-        age=45, specialization="Mission Command", years_experience=20
+        member_id=working_missions['crew'][0]['member_id'],
+        name=working_missions['crew'][0]['name'],
+        rank=working_missions['crew'][0]['rank'],
+        age=working_missions['crew'][0]['age'],
+        specialization=working_missions['crew'][0]['specialization'],
+        years_experience=working_missions['crew'][0]['years_experience']
     )
-    john = CrewMember(
-        member_id="CM002", name="John Smith", rank=Rank.lieutenant,
-        age=35, specialization="Navigation", years_experience=10
+    james = CrewMember(
+        member_id=working_missions['crew'][1]['member_id'],
+        name=working_missions['crew'][1]['name'],
+        rank=working_missions['crew'][1]['rank'],
+        age=working_missions['crew'][1]['age'],
+        specialization=working_missions['crew'][1]['specialization'],
+        years_experience=working_missions['crew'][1]['years_experience']
     )
-    alice = CrewMember(
-        member_id="CM003", name="Alice Johnson", rank=Rank.officer,
-        age=28, specialization="Engineering", years_experience=3
+    anna = CrewMember(
+        member_id=working_missions['crew'][2]['member_id'],
+        name=working_missions['crew'][2]['name'],
+        rank=working_missions['crew'][2]['rank'],
+        age=working_missions['crew'][2]['age'],
+        specialization=working_missions['crew'][2]['specialization'],
+        years_experience=working_missions['crew'][2]['years_experience']
     )
 
     try:
 
         valid_mission = SpaceMission(
-            mission_id="M2024_MARS",
-            mission_name="Mars Colony Establishment",
-            destination="Mars",
-            launch_date="2025-01-01T08:00:00",
-            duration_days=900,
-            crew=[sarah, john, alice],
-            budget_millions=2500.0
+            mission_id=working_missions['mission_id'],
+            mission_name=working_missions['mission_name'],
+            destination=working_missions['destination'],
+            launch_date=working_missions['launch_date'],
+            duration_days=working_missions['duration_days'],
+            crew=[sarah, james, anna],
+            budget_millions=working_missions['budget_millions']
         )
 
         print("Valid mission created:")
@@ -112,20 +146,31 @@ def main():
         for error in e.errors():
             print(f"{error['msg'].split(',')[1].strip()}")
 
-    print("=========================================")
+    print("\n=========================================")
 
     try:
 
         invalid_mission = SpaceMission(
-            mission_id="M2024_LUNA",
-            mission_name="Lunar Backup",
-            destination="Moon",
-            launch_date="2025-02-01T08:00:00",
-            duration_days=30,
-            crew=[john, alice],
-            budget_millions=500.0
+            mission_id=working_missions['mission_id'],
+            mission_name=working_missions['mission_name'],
+            destination=working_missions['destination'],
+            launch_date=working_missions['launch_date'],
+            duration_days=working_missions['duration_days'],
+            crew=[anna],
+            budget_millions=working_missions['budget_millions']
         )
-        print(invalid_mission)
+
+        print("Valid mission created:")
+        print(f"Mission: {invalid_mission.mission_name}")
+        print(f"ID: {invalid_mission.mission_id}")
+        print(f"Destination: {invalid_mission.destination}")
+        print(f"Duration: {invalid_mission.duration_days} days")
+        print(f"Budget: ${invalid_mission.budget_millions}M")
+        print(f"Crew size: {len(invalid_mission.crew)}")
+        print("Crew members:")
+
+        for m in invalid_mission.crew:
+            print(f"- {m.name} ({m.rank.value}) - {m.specialization}")
 
     except ValidationError as e:
 

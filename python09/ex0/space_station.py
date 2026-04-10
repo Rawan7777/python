@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
 from typing import Optional
+import json
 
 
 class SpaceStation(BaseModel):
@@ -15,6 +16,21 @@ class SpaceStation(BaseModel):
     notes: Optional[str] = Field(default=None, max_length=200)
 
 
+def load_stations(path: str) -> list[SpaceStation]:
+    with open(path, "r") as f:
+        raw_data = json.load(f)
+
+    stations = []
+
+    for item in raw_data:
+        try:
+            stations.append(item)
+        except Exception as e:
+            print(e)
+
+    return stations
+
+
 def main() -> None:
 
     print("Space Station Data Validation")
@@ -22,14 +38,18 @@ def main() -> None:
 
     try:
 
+        stations = load_stations("space_stations.json")
+
+        working_stations = stations[0]
+
         valid_station = SpaceStation(
-            station_id="ISS001",
-            name="International Space Station",
-            crew_size=6,
-            power_level=85.5,
-            oxygen_level=92.3,
-            last_maintenance=datetime.now(),
-            is_operational=True
+            station_id=working_stations['station_id'],
+            name=working_stations['name'],
+            crew_size=working_stations['crew_size'],
+            power_level=working_stations['power_level'],
+            oxygen_level=working_stations['oxygen_level'],
+            last_maintenance=working_stations['last_maintenance'],
+            is_operational=working_stations['is_operational']
         )
 
         print("Valid station created:")
@@ -53,13 +73,18 @@ def main() -> None:
 
     try:
 
+        stations = load_stations("invalid_stations.json")
+
+        working_stations = stations[0]
+
         invalid_station = SpaceStation(
-            station_id="ISS002",
-            name="Alpha Station",
-            crew_size=25,
-            power_level=70.0,
-            oxygen_level=80.0,
-            last_maintenance=datetime.now()
+            station_id=working_stations['station_id'],
+            name=working_stations['name'],
+            crew_size=working_stations['crew_size'],
+            power_level=working_stations['power_level'],
+            oxygen_level=working_stations['oxygen_level'],
+            last_maintenance=working_stations['last_maintenance'],
+            is_operational=working_stations['is_operational']
         )
         print(invalid_station)
 

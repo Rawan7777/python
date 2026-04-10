@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
 from typing import Optional
 from enum import Enum
+import json
 
 
 class ContactType(str, Enum):
@@ -47,6 +48,21 @@ should include received messages")
         return self
 
 
+def load_aliens(path: str) -> list[AlienContact]:
+    with open(path, "r") as f:
+        raw_data = json.load(f)
+
+    aliens = []
+
+    for item in raw_data:
+        try:
+            aliens.append(item)
+        except Exception as e:
+            print(e)
+
+    return aliens
+
+
 def main():
 
     print("Alien Contact Log Validation")
@@ -54,15 +70,20 @@ def main():
 
     try:
 
+        aliens = load_aliens("alien_contacts.json")
+
+        working_aliens = aliens[0]
+
         valid_contact = AlienContact(
-            contact_id="AC_2024_001",
-            timestamp="2024-01-01T12:00:00",
-            location="Area 51, Nevada",
-            contact_type=ContactType.radio,
-            signal_strength=8.5,
-            duration_minutes=45,
-            witness_count=5,
-            message_received="Greetings from Zeta Reticuli"
+            contact_id=working_aliens['contact_id'],
+            timestamp=working_aliens['timestamp'],
+            location=working_aliens['location'],
+            contact_type=working_aliens['contact_type'],
+            signal_strength=working_aliens['signal_strength'],
+            duration_minutes=working_aliens['duration_minutes'],
+            witness_count=working_aliens['witness_count'],
+            message_received=working_aliens['message_received'],
+            is_verified=working_aliens['is_verified']
         )
 
         print("Valid contact report:")
@@ -84,14 +105,20 @@ def main():
     print("======================================")
     try:
 
+        aliens = load_aliens("invalid_contacts.json")
+
+        working_aliens = aliens[0]
+
         invalid_contact = AlienContact(
-            contact_id="AC_2024_002",
-            timestamp="2024-01-01T12:00:00",
-            location="Nevada",
-            contact_type=ContactType.telepathic,
-            signal_strength=5.0,
-            duration_minutes=30,
-            witness_count=1
+            contact_id=working_aliens['contact_id'],
+            timestamp=working_aliens['timestamp'],
+            location=working_aliens['location'],
+            contact_type=working_aliens['contact_type'],
+            signal_strength=working_aliens['signal_strength'],
+            duration_minutes=working_aliens['duration_minutes'],
+            witness_count=working_aliens['witness_count'],
+            message_received=working_aliens['message_received'],
+            is_verified=working_aliens['is_verified']
         )
         print(invalid_contact)
 
