@@ -16,7 +16,8 @@ class SpaceStation(BaseModel):
     notes: Optional[str] = Field(default=None, max_length=200)
 
 
-def load_stations(path: str) -> list[SpaceStation]:
+def load_stations(path: str) -> list[dict]:
+
     with open(path, "r") as f:
         raw_data = json.load(f)
 
@@ -40,7 +41,7 @@ def main() -> None:
 
         stations = load_stations("space_stations.json")
 
-        working_stations = stations[0]
+        working_stations: dict = stations[0]
 
         valid_station = SpaceStation(
             station_id=working_stations['station_id'],
@@ -67,7 +68,7 @@ def main() -> None:
         print("Expected validation error:")
 
         for err in e.errors():
-            print(err['msg'])
+            print(err["msg"])
 
     print("========================================")
 
@@ -93,7 +94,7 @@ def main() -> None:
         print("Expected validation error:")
 
         for err in e.errors():
-            print(err['msg'])
+            print(err["msg"])
 
 
 if __name__ == "__main__":

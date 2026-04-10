@@ -88,8 +88,6 @@ def main():
 
     working_missions = missions[0]
 
-    # print(working_missions)
-
     sarah = CrewMember(
         member_id=working_missions['crew'][0]['member_id'],
         name=working_missions['crew'][0]['name'],
