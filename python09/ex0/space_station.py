@@ -78,7 +78,7 @@ def main() -> None:
 
         working_stations = stations[0]
 
-        invalid_station = SpaceStation(
+        SpaceStation(
             station_id=working_stations['station_id'],
             name=working_stations['name'],
             crew_size=working_stations['crew_size'],
@@ -87,7 +87,6 @@ def main() -> None:
             last_maintenance=working_stations['last_maintenance'],
             is_operational=working_stations['is_operational']
         )
-        print(invalid_station)
 
     except ValidationError as e:
 

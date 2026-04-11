@@ -5,7 +5,7 @@ from enum import Enum
 import json
 
 
-class ContactType(str, Enum):
+class ContactType(Enum):
 
     radio = "radio"
     visual = "visual"
@@ -31,11 +31,14 @@ class AlienContact(BaseModel):
         if not self.contact_id.startswith("AC"):
             raise ValueError("Contact ID must start with 'AC'")
 
-        if self.contact_type == ContactType.physical and not self.is_verified:
+        if (
+            self.contact_type.value == ContactType.physical.value
+            and not self.is_verified
+        ):
             raise ValueError("Physical contact reports must be verified")
 
         if (
-            self.contact_type == ContactType.telepathic and
+            self.contact_type.value == ContactType.telepathic.value and
             self.witness_count < 3
         ):
             raise ValueError("Telepathic contact requires \
@@ -100,7 +103,7 @@ def main():
         print("Expected validation error:")
 
         for error in e.errors():
-            print(f"{error['msg'].split(',')[1].strip()}")
+            print(error["msg"].removeprefix("Value error, "))
 
     print("======================================")
     try:
@@ -109,7 +112,7 @@ def main():
 
         working_aliens = aliens[0]
 
-        invalid_contact = AlienContact(
+        AlienContact(
             contact_id=working_aliens['contact_id'],
             timestamp=working_aliens['timestamp'],
             location=working_aliens['location'],
@@ -120,14 +123,13 @@ def main():
             message_received=working_aliens['message_received'],
             is_verified=working_aliens['is_verified']
         )
-        print(invalid_contact)
 
     except ValidationError as e:
 
         print("Expected validation error:")
 
         for error in e.errors():
-            print(f"{error['msg'].split(',')[1].strip()}")
+            print(error["msg"].removeprefix("Value error, "))
 
 
 if __name__ == "__main__":
