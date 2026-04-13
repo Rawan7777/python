@@ -27,7 +27,7 @@ def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
         'ice': functools.partial(base_enchantment, power=50, element='ice'),
         'lightning': functools.partial(
             base_enchantment, power=50, element='lightning'
-        ),
+        )
     }
 
 
@@ -63,36 +63,38 @@ def spell_dispatcher() -> Callable[[Any], str]:
 
 
 if __name__ == "__main__":
-    print("Testing spell reducer...")
-    powers = [10, 20, 30, 40]
-    print(f"Sum: {spell_reducer(powers, 'add')}")
-    print(f"Product: {spell_reducer(powers, 'multiply')}")
-    print(f"Max: {spell_reducer(powers, 'max')}")
 
     try:
-        spell_reducer(powers, 'unknown')
-    except ValueError as e:
-        print(f"Error handled: {e}")
 
-    print("\nTesting partial enchanter...")
+        print("Testing spell reducer...")
+        powers = [10, 20, 30, 40]
+        print(f"Sum: {spell_reducer(powers, 'add')}")
+        print(f"Product: {spell_reducer(powers, 'multiply')}")
+        print(f"Max: {spell_reducer(powers, 'max')}")
 
-    def base_enchantment(power: int, element: str, target: str) -> str:
-        return f"{element.capitalize()} enchantment ({power} power) on {target}"
+        print("\nTesting partial enchanter...")
 
-    variants = partial_enchanter(base_enchantment)
+        def base_enchantment(power: int, element: str, target: str) -> str:
+            return f"{element.capitalize()} enchantment \
+({power} power) on {target}"
 
-    print(variants["fire"](target="Dragon Sword"))
-    print(variants["ice"](target="Dragon Sword"))
-    print(variants["lightning"](target="Dragon Sword"))
+        variants = partial_enchanter(base_enchantment)
 
-    print("\nTesting memoized fibonacci...")
-    for n in [0, 1, 10, 15]:
-        print(f"Fib({n}): {memoized_fibonacci(n)}")
-    print(f"Cache info: {memoized_fibonacci.cache_info()}")
+        print(variants["fire"](target="Dragon Sword"))
+        print(variants["ice"](target="Dragon Sword"))
+        print(variants["lightning"](target="Dragon Sword"))
 
-    print("\nTesting spell dispatcher...")
-    dispatch = spell_dispatcher()
-    print(dispatch(42))
-    print(dispatch("fireball"))
-    print(dispatch(["bolt", "heal", "shield"]))
-    print(dispatch(3.14))
+        print("\nTesting memoized fibonacci...")
+        for n in [0, 1, 10, 15]:
+            print(f"Fib({n}): {memoized_fibonacci(n)}")
+        print(f"Cache info: {memoized_fibonacci.cache_info()}")
+
+        print("\nTesting spell dispatcher...")
+        dispatch = spell_dispatcher()
+        print(dispatch(42))
+        print(dispatch("fireball"))
+        print(dispatch(["bolt", "heal", "shield"]))
+        print(dispatch(3.14))
+
+    except Exception as error:
+        print(f"Error catched: {error}")

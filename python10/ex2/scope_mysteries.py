@@ -50,27 +50,32 @@ def memory_vault() -> dict[str, Callable]:
 
 if __name__ == "__main__":
 
-    print("Testing mage counter...")
-    counter_a = mage_counter()
-    counter_b = mage_counter()
-    print(f"counter_a call 1: {counter_a()}")
-    print(f"counter_a call 2: {counter_a()}")
-    print(f"counter_b call 1: {counter_b()}")
+    try:
 
-    print("\nTesting spell accumulator...")
-    acc = spell_accumulator(100)
-    print(f"Base 100, add 20: {acc(20)}")
-    print(f"Base 100, add 30: {acc(30)}")
+        print("Testing mage counter...")
+        counter_a = mage_counter()
+        counter_b = mage_counter()
+        print(f"counter_a call 1: {counter_a()}")
+        print(f"counter_a call 2: {counter_a()}")
+        print(f"counter_b call 1: {counter_b()}")
 
-    print("\nTesting enchantment factory...")
-    flaming = enchantment_factory("Flaming")
-    print(flaming("Sword"))
-    frozen = enchantment_factory("Frozen")
-    print(frozen("Shield"))
+        print("\nTesting spell accumulator...")
+        acc = spell_accumulator(100)
+        print(f"Base 100, add 20: {acc(20)}")
+        print(f"Base 100, add 30: {acc(30)}")
 
-    print("\nTesting memory vault...")
-    vault = memory_vault()
-    print("Store 'secret' = 42")
-    vault["store"]("secret", 42)
-    print(f"Recall 'secret': {vault['recall']('secret')}")
-    print(f"Recall 'unknown': {vault['recall']('unknown')}")
+        print("\nTesting enchantment factory...")
+        flaming = enchantment_factory("Flaming")
+        print(flaming("Sword"))
+        frozen = enchantment_factory("Frozen")
+        print(frozen("Shield"))
+
+        print("\nTesting memory vault...")
+        vault = memory_vault()
+        print("Store 'secret' = 42")
+        vault["store"]("secret", 42)
+        print(f"Recall 'secret': {vault['recall']('secret')}")
+        print(f"Recall 'unknown': {vault['recall']('unknown')}")
+
+    except Exception as error:
+        print(f"Error catched: {error}")

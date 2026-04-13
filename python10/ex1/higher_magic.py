@@ -37,41 +37,47 @@ def spell_sequence(spells: List[Callable]) -> Callable:
 
     return sequence
 
+
 if __name__ == "__main__":
 
-    def fireball(target: str, power: int) -> str:
-        return f"Fireball hits {target} for {power} damage"
+    try:
 
-    def heal(target: str, power: int) -> str:
-        return f"Heals {target} for {power} health"
+        def fireball(target: str, power: int) -> str:
+            return f"Fireball hits {target} for {power} damage"
 
-    print("Testing spell combiner...")
-    combined = spell_combiner(fireball, heal)
-    result = combined("Dragon", 10)
-    print(f"Combined spell result: {result[0]}, {result[1]}")
+        def heal(target: str, power: int) -> str:
+            return f"Heals {target} for {power} health"
 
-    def lightning(target: str, power: int) -> str:
-        return f"Lightning strikes {target} for {power} damage"
+        print("Testing spell combiner...")
+        combined = spell_combiner(fireball, heal)
+        result = combined("Dragon", 10)
+        print(f"Combined spell result: {result[0]}, {result[1]}")
 
-    print("\nTesting power amplifier...")
-    mega_fireball = power_amplifier(lightning, 3)
-    original = lightning("Dragon", 10)
-    amplified = mega_fireball("Dragon", 10)
-    print("Original: 10, Amplified: 30")
-    print(f"{original}")
-    print(f"{amplified}")
+        def lightning(target: str, power: int) -> str:
+            return f"Lightning strikes {target} for {power} damage"
 
-    print("\nTesting conditional caster...")
+        print("\nTesting power amplifier...")
+        mega_fireball = power_amplifier(lightning, 3)
+        original = lightning("Dragon", 10)
+        amplified = mega_fireball("Dragon", 10)
+        print("Original: 10, Amplified: 30")
+        print(f"{original}")
+        print(f"{amplified}")
 
-    def strong_enough(target: str, power: int) -> bool:
-        return power >= 20
+        print("\nTesting conditional caster...")
 
-    conditional = conditional_caster(strong_enough, fireball)
-    print(conditional("Dragon", 25))
-    print(conditional("Dragon", 5))
+        def strong_enough(target: str, power: int) -> bool:
+            return power >= 20
 
-    print("\nTesting spell sequence...")
-    sequence = spell_sequence([fireball, heal, lightning])
-    results = sequence("Dragon", 15)
-    for r in results:
-        print(f"{r}")
+        conditional = conditional_caster(strong_enough, fireball)
+        print(conditional("Dragon", 25))
+        print(conditional("Dragon", 5))
+
+        print("\nTesting spell sequence...")
+        sequence = spell_sequence([fireball, heal, lightning])
+        results = sequence("Dragon", 15)
+        for r in results:
+            print(f"{r}")
+
+    except Exception as error:
+        print(f"Error catched: {error}")

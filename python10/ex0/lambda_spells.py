@@ -18,7 +18,9 @@ def spell_transformer(spells: List[str]) -> List[str]:
 
 def mage_stats(mages: List[Dict]) -> Dict:
     """Return max, min and average power."""
-    powers = list(map(lambda m: m["power"], mages))
+    powers = []
+    for ele in mages:
+        powers.append(ele['power'])
     return {
         "max_power": max(powers),
         "min_power": min(powers),
@@ -28,47 +30,51 @@ def mage_stats(mages: List[Dict]) -> Dict:
 
 if __name__ == "__main__":
 
-    print("Testing artifact sorter...")
+    try:
 
-    artifacts = [
-        {"name": "Storm Crown", "power": 111, "type": "focus"},
-        {"name": "Lightning Rod", "power": 108, "type": "armor"},
-        {"name": "Lightning Rod", "power": 109, "type": "relic"},
-        {"name": "Water Chalice", "power": 88, "type": "focus"},
-    ]
+        print("Testing artifact sorter...")
 
-    sorted_artifacts = artifact_sorter(artifacts)
-    first, second = sorted_artifacts[0], sorted_artifacts[1]
-    print(
-        f"{first['name']} ({first['power']} power) "
-        f"comes before {second['name']} ({second['power']} power)"
-    )
+        artifacts = [
+            {"name": "Storm Crown", "power": 111, "type": "focus"},
+            {"name": "Lightning Rod", "power": 108, "type": "armor"},
+            {"name": "Lightning Rod", "power": 109, "type": "relic"},
+            {"name": "Water Chalice", "power": 88, "type": "focus"},
+        ]
 
-    print("\nTesting power filter...")
+        sorted_artifacts = artifact_sorter(artifacts)
+        first, second = sorted_artifacts[0], sorted_artifacts[1]
+        print(
+            f"{first['name']} ({first['power']} power) "
+            f"comes before {second['name']} ({second['power']} power)"
+        )
 
-    mages = [
-        {"name": "Morgan", "power": 91, "element": "fire"},
-        {"name": "Sage", "power": 65, "element": "light"},
-        {"name": "Casey", "power": 60, "element": "light"},
-        {"name": "Riley", "power": 51, "element": "fire"},
-        {"name": "Alex", "power": 51, "element": "wind"},
-    ]
+        print("\nTesting power filter...")
 
-    filtered = power_filter(mages, 70)
-    print(f"Mages with power >= 70: {[m['name'] for m in filtered]}")
+        mages = [
+            {"name": "Morgan", "power": 91, "element": "fire"},
+            {"name": "Sage", "power": 65, "element": "light"},
+            {"name": "Casey", "power": 60, "element": "light"},
+            {"name": "Riley", "power": 51, "element": "fire"},
+            {"name": "Alex", "power": 51, "element": "wind"},
+        ]
 
-    print("\nTesting spell transformer...")
-    spells = [
-        "blizzard",
-        "meteor",
-        "lightning",
-        "earthquake",
-    ]
-    print(" ".join(spell_transformer(spells)))
+        filtered = power_filter(mages, 70)
+        print(f"Mages with power >= 70: {[m['name'] for m in filtered]}")
 
-    print("\nTesting mage stats...")
-    stats = mage_stats(mages)
-    print(
-        f"Max: {stats['max_power']}, Min: {stats['min_power']}, "
-        f"Avg: {stats['avg_power']}"
-    )
+        print("\nTesting spell transformer...")
+        spells = [
+            "blizzard",
+            "meteor",
+            "lightning",
+            "earthquake",
+        ]
+        print(" ".join(spell_transformer(spells)))
+
+        print("\nTesting mage stats...")
+        stats = mage_stats(mages)
+        print(
+            f"Max: {stats['max_power']}, Min: {stats['min_power']}, "
+            f"Avg: {stats['avg_power']}"
+        )
+    except Exception as error:
+        print(f"Error catched: {error}")

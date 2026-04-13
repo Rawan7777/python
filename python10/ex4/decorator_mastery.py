@@ -64,34 +64,40 @@ class MageGuild:
 
 
 if __name__ == "__main__":
-    print("Testing spell timer...")
 
-    @spell_timer
-    def fireball():
-        time.sleep(0.1)
-        return "Fireball cast!"
+    try:
 
-    result = fireball()
-    print(f"Result: {result}")
+        print("Testing spell timer...")
 
-    print("\nTesting retrying spell...")
+        @spell_timer
+        def fireball():
+            time.sleep(0.1)
+            return "Fireball cast!"
 
-    @retry_spell(max_attempts=3)
-    def unstable_spell():
-        raise RuntimeError("Spell unstable!")
+        result = fireball()
+        print(f"Result: {result}")
 
-    @retry_spell(max_attempts=3)
-    def always_fails():
-        raise RuntimeError("Spell unstable!")
+        print("\nTesting retrying spell...")
 
-    outcome = always_fails()
-    print(outcome)
-    print("Waaaaaaagh spelled !")
+        @retry_spell(max_attempts=3)
+        def unstable_spell():
+            raise RuntimeError("Spell unstable!")
 
-    print("\nTesting MageGuild...")
-    guild = MageGuild()
-    print(MageGuild.validate_mage_name("Merlin"))
-    print(MageGuild.validate_mage_name("X2"))
+        @retry_spell(max_attempts=3)
+        def always_fails():
+            raise RuntimeError("Spell unstable!")
 
-    print(guild.cast_spell("Lightning", 15))
-    print(guild.cast_spell("Lightning", 5))
+        outcome = always_fails()
+        print(outcome)
+        print("Waaaaaaagh spelled !")
+
+        print("\nTesting MageGuild...")
+        guild = MageGuild()
+        print(MageGuild.validate_mage_name("Merlin"))
+        print(MageGuild.validate_mage_name("X2"))
+
+        print(guild.cast_spell("Lightning", 15))
+        print(guild.cast_spell("Lightning", 5))
+
+    except Exception as error:
+        print(f"Error catched: {error}")
