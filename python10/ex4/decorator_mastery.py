@@ -5,14 +5,18 @@ from typing import Any
 
 
 def spell_timer(func: Callable) -> Callable:
+
     @wraps(func)
     def wrapper():
+
         print(f"Casting {func.__name__}...")
         start = time.time()
         result = func()
         elapsed = time.time() - start
         print(f"Spell completed in {elapsed:.3f} seconds")
+
         return result
+
     return wrapper
 
 
@@ -36,7 +40,9 @@ def power_validator(min_power: int) -> Callable:
 
 
 def retry_spell(max_attempts: int) -> Callable:
+
     def decorator(func: Callable) -> Callable:
+
         @wraps(func)
         def wrapper(*args, **kwargs):
             for attempt in range(1, max_attempts):
@@ -48,7 +54,9 @@ def retry_spell(max_attempts: int) -> Callable:
                         f"(attempt {attempt}/{max_attempts})"
                     )
             return f"Spell casting failed after {max_attempts} attempts"
+
         return wrapper
+
     return decorator
 
 

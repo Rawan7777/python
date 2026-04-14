@@ -2,22 +2,18 @@ from typing import List, Dict
 
 
 def artifact_sorter(artifacts: List[Dict]) -> List[Dict]:
-    """Sort artifacts by power descending."""
     return sorted(artifacts, key=lambda a: a["power"], reverse=True)
 
 
 def power_filter(mages: List[Dict], min_power: int) -> List[Dict]:
-    """Filter mages by minimum power."""
     return list(filter(lambda m: m["power"] >= min_power, mages))
 
 
 def spell_transformer(spells: List[str]) -> List[str]:
-    """Add prefix and suffix to spells."""
     return list(map(lambda s: f"* {s} *", spells))
 
 
 def mage_stats(mages: List[Dict]) -> Dict:
-    """Return max, min and average power."""
     powers = []
     for ele in mages:
         powers.append(ele['power'])
@@ -76,5 +72,6 @@ if __name__ == "__main__":
             f"Max: {stats['max_power']}, Min: {stats['min_power']}, "
             f"Avg: {stats['avg_power']}"
         )
+
     except Exception as error:
         print(f"Error catched: {error}")

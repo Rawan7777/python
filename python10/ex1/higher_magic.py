@@ -53,12 +53,9 @@ if __name__ == "__main__":
         result = combined("Dragon", 10)
         print(f"Combined spell result: {result[0]}, {result[1]}")
 
-        def lightning(target: str, power: int) -> str:
-            return f"Lightning strikes {target} for {power} damage"
-
         print("\nTesting power amplifier...")
-        mega_fireball = power_amplifier(lightning, 3)
-        original = lightning("Dragon", 10)
+        mega_fireball = power_amplifier(fireball, 3)
+        original = fireball("Dragon", 10)
         amplified = mega_fireball("Dragon", 10)
         print("Original: 10, Amplified: 30")
         print(f"{original}")
@@ -74,7 +71,7 @@ if __name__ == "__main__":
         print(conditional("Dragon", 5))
 
         print("\nTesting spell sequence...")
-        sequence = spell_sequence([fireball, heal, lightning])
+        sequence = spell_sequence([fireball, heal])
         results = sequence("Dragon", 15)
         for r in results:
             print(f"{r}")

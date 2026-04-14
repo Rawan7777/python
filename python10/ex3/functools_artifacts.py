@@ -5,6 +5,7 @@ from typing import Any
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
+
     if not spells:
         return 0
 
@@ -87,7 +88,6 @@ if __name__ == "__main__":
         print("\nTesting memoized fibonacci...")
         for n in [0, 1, 10, 15]:
             print(f"Fib({n}): {memoized_fibonacci(n)}")
-        print(f"Cache info: {memoized_fibonacci.cache_info()}")
 
         print("\nTesting spell dispatcher...")
         dispatch = spell_dispatcher()
